@@ -41,93 +41,57 @@
 
 
 
-Based on the images provided, here are the questions and their answers, clearly broken down with simple explanations and commands.
-________________________________________
-Questions 1-6
-1.	Download the given repository and show the list of the files?
-o	Command: git clone https://github.com/KumbhamBhargavi75/HospitalMgmtSystem
-o	Explanation: After this, you need to navigate into the new folder and list the files.
-o	Command: cd HospitalMgmtSystem followed by ls (on Linux/macOS) or dir (on Windows).
-2.	mvn CLEAN package, when I run this getting an unknown lifecycle phase error why?
-o	Explanation: This error usually happens when there's a spelling mistake in the command or the Maven pom.xml file has an error. The command clean package is correct, but Maven cannot understand an unknown lifecycle phase if it is not a correct phase name. A common mistake is a typo, for example, packege instead of package.
-3.	Add the dependency servlet-api of 2.5 to your project.
-o	Answer: You need to add this dependency block inside the <dependencies> section of your pom.xml file.
-o	Code:
-XML
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>servlet-api</artifactId>
-    <version>2.5</version>
-</dependency>
-4.	You try to build the project with JDK 21, but compilation fails. Why might this happen? How to fix in pom.xml?
-o	Explanation: This happens because newer JDK versions (like JDK 21) have strict rules. The code in your project might be using features that are removed or changed in newer JDKs.
-o	Fix: You need to tell Maven which Java version your project should use. You can do this by adding the maven-compiler-plugin to your pom.xml.
-o	Code:
-XML
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
-            <configuration>
-                <source>1.8</source>
-                <target>1.8</target>
-            </configuration>
-        </plugin>
-    </plugins>
-</build>
-	Note: Here, 1.8 is used as an example for Java 8, which is often a safe choice for older projects.
-5.	In the dependency section: <dependency> <groupId>SE</groupId> <artifactId>junit</artifactId> <version>4.6.0</version> </dependency> What will Maven do in this case? How can you solve?
-o	Explanation: Maven will fail to download this dependency. The groupId and artifactId are not correct for JUnit. Maven looks for these details on the Maven Central Repository, and it won't find anything with groupId as "SE".
-o	Fix: You need to use the correct groupId and artifactId for the JUnit dependency.
-o	Correct Code:
-XML
-<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-    <version>4.6.0</version>
-    <scope>test</scope>
-</dependency>
-6.	After building the WAR, you notice the generated file is named hospitalmgmtSys-1.0-SNAPSHOT.war instead of HospitalMgmtSystem.war, how to fix it?
-o	Explanation: Maven adds the project's <version> to the final file name by default.
-o	Fix: You can remove the version from the final file name by adding a <finalName> property inside the <build> section of your pom.xml.
-o	Code:
-XML
-<build>
-    <finalName>HospitalMgmtSystem</finalName>
-</build>
-________________________________________
-Questions 7-13
-7.	Add the central dependency of Java Servlet API 4.0.0-b01 to your existing project. Check the complete pom.xml file and run it.
-o	Answer: You need to add the following dependency block inside the <dependencies> section of your pom.xml.
-o	Code:
-XML
-<dependency>
-    <groupId>javax.servlet</groupId>
-    <artifactId>javax.servlet-api</artifactId>
-    <version>4.0.0-b01</version>
-    <scope>provided</scope>
-</dependency>
-8.	A developer removes the <dependencies> section completely. Will Maven still build the project? What issues might occur during testing?
-o	Explanation: Maven will still build the project if there are no dependencies required for compilation. However, issues will occur during testing.
-o	Issues during testing: The test code will fail because it won't be able to find the necessary libraries like JUnit or Mockito, which are required to run the tests.
-9.	Failed to execute goal [org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile] on project [project-name] [ERROR] No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK? Identify the error?
-o	Explanation: The error is exactly as stated: "No compiler is provided in this environment. Perhaps you are running on a JRE rather than a JDK?" Maven needs the JDK (Java Development Kit) to compile the code. The JRE (Java Runtime Environment) is only for running Java applications, not compiling them.
-10.	In Build is having finalname as <finalName>localhost:8080/FoodSystem</finalName>, is it works, if not how can you fix it?
-o	Explanation: This will not work. The <finalName> is only meant for the name of the final build file (like a .jar or .war file). It should not contain a URL or any special characters like : or /.
-o	Fix: The correct finalName should be just the name of the file, such as FoodSystem.
-o	Code:
-XML
-<build>
-    <finalName>FoodSystem</finalName>
-</build>
-11.	Your project is meant to deploy on Tomcat, but <packaging>jar</packaging> is like this in pom.xml. How do you solve it?
-o	Explanation: To deploy a project on Tomcat, it must be packaged as a .war file. The <packaging> element in pom.xml must be set to war.
-o	Fix: Change the packaging type to war.
-o	Code:
-XML
-<packaging>war</packaging>
-12.	In the <url> tag, written <url>http://maven.java.org12</url>. Will Maven accept this? What is the correct purpose of the <url> element in pom.xml?
-o	Explanation: Yes, Maven will accept this URL. Maven does not check if the URL is valid or exists.
-o	Purpose: The <url> element's purpose is to provide the URL for the project's website. It is used for documentation and information, not for any functional part of the build process.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1. Abstract: System Overview
+This project designs an online platform for grocery delivery, similar to BigBasket. The system lets customers shop, pay, and track orders. It also provides tools for store managers to handle inventory and for delivery agents to fulfill orders.
+
+2. Functional Requirements
+These are the core actions the system must perform:
+
+User Management: Customers, managers, and agents can securely sign up and log in.
+
+Shopping: Customers can browse items, add them to a cart, and place an order.
+
+Payments: The system will process payments securely.
+
+Order Tracking: Customers can follow their order's journey from store to delivery.
+
+Inventory & Order Handling: Managers can update stock and assign orders to delivery agents.
+
+Delivery Management: Agents can view their assigned orders and update their delivery status.
+
+3. Non-Functional Requirements
+These requirements define how well the system performs:
+
+Performance & Reliability: The system must be fast, reliable, and available 24/7.
+
+Security: All user and payment data must be protected.
+
+Usability: The platform must be easy to use for all three types of users.
+
+Scalability: The system should be able to handle growth in users and orders.
+
+4. Users of the System
+The system has three primary users:
+
+Customers: People who buy groceries online.
+
+Store Managers: Staff who manage products and prepare orders.
+
+Delivery Agents: People who deliver the orders to the customer's location.

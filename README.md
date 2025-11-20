@@ -165,3 +165,10 @@ Save.
 Create → MavenWeb_Pipeline
 
 Initial Job: MavenWeb_Build
+
+
+
+# nagios
+
+1.docker pull jasonrivers/nagios:latest
+2.docker run --name nagiosdemo1 --p 8888:80 jasonrivers/nagios:latest
